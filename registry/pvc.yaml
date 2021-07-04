@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: registry-data
+  namespace: jenkins-stack
+  labels:
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/part-of: jenkins
+    app.kubernetes.io/scope: devops-with-saeid
+    app.kubernetes.io/created-by: ssbostan
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

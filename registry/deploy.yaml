@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+  namespace: jenkins-stack
+  labels:
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/part-of: jenkins
+    app.kubernetes.io/scope: devops-with-saeid
+    app.kubernetes.io/created-by: ssbostan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: registry
+      app.kubernetes.io/part-of: jenkins
+      app.kubernetes.io/scope: devops-with-saeid
+      app.kubernetes.io/created-by: ssbostan
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: registry
+        app.kubernetes.io/part-of: jenkins
+        app.kubernetes.io/scope: devops-with-saeid
+        app.kubernetes.io/created-by: ssbostan
+    spec:
+      containers:
+        - name: registry
+          image: registry:2
+          envFrom:
+            - configMapRef:
+                name: registry-env
+          ports:
+            - containerPort: 443
+          resources:
+            requests:
+              cpu: 200m
+              memory: 128Mi
+            limits:
+              cpu: 1
+              memory: 1Gi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/registry
+            - name: certs
+              mountPath: /certs
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: registry-data
+        - name: certs
+          secret:
+            secretName: registry-certs
