@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea
+  namespace: jenkins-stack
+  labels:
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/part-of: jenkins
+    app.kubernetes.io/scope: devops-with-saeid
+    app.kubernetes.io/created-by: ssbostan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gitea
+      app.kubernetes.io/part-of: jenkins
+      app.kubernetes.io/scope: devops-with-saeid
+      app.kubernetes.io/created-by: ssbostan
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gitea
+        app.kubernetes.io/part-of: jenkins
+        app.kubernetes.io/scope: devops-with-saeid
+        app.kubernetes.io/created-by: ssbostan
+    spec:
+      containers:
+        - name: gitea
+          image: gitea/gitea:1.14
+          env:
+            - name: TZ
+              value: Asia/Tehran
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 2
+              memory: 2Gi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: gitea-data
