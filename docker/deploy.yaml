@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker
+  namespace: jenkins-stack
+  labels:
+    app.kubernetes.io/name: docker
+    app.kubernetes.io/part-of: jenkins
+    app.kubernetes.io/scope: devops-with-saeid
+    app.kubernetes.io/created-by: ssbostan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: docker
+      app.kubernetes.io/part-of: jenkins
+      app.kubernetes.io/scope: devops-with-saeid
+      app.kubernetes.io/created-by: ssbostan
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: docker
+        app.kubernetes.io/part-of: jenkins
+        app.kubernetes.io/scope: devops-with-saeid
+        app.kubernetes.io/created-by: ssbostan
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: jenkins
+                    app.kubernetes.io/part-of: jenkins
+                    app.kubernetes.io/scope: devops-with-saeid
+                    app.kubernetes.io/created-by: ssbostan
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: docker
+          image: docker:dind
+          args: ["--insecure-registry", "$(JENKINS_DOCKER_REGISTRY_IP)"]
+          envFrom:
+            - configMapRef:
+                name: docker-env
+          ports:
+            - containerPort: 2376
+          resources:
+            requests:
+              cpu: 2
+              memory: 2Gi
+            limits:
+              cpu: 4
+              memory: 4Gi
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/docker
+            - name: certs
+              mountPath: /certs
+            - name: certs-client
+              mountPath: /certs/client
+            - name: jenkins-data
+              mountPath: /var/jenkins_home
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: docker-data
+        - name: certs
+          persistentVolumeClaim:
+            claimName: docker-certs
+        - name: certs-client
+          persistentVolumeClaim:
+            claimName: docker-certs-client
+        - name: jenkins-data
+          persistentVolumeClaim:
+            claimName: jenkins-data
