@@ -1,0 +1,115 @@
+#!/bin/bash
+
+# This code is related to "DevOps with Saeid" class.
+# All rights reserved, Saeid Bostandoust <ssbostan@linuxmail.org>.
+
+echo "INFO: Welcome to \"DevOps with Saeid\" class (https://b9t.ir/dwsclass)."
+
+KUBECTL_BIN_PATH=$(which kubectl &> /dev/null)
+
+if [ $? -ne 0 ]; then
+    echo "ERROR: kubectl is not installed."
+    exit 1
+fi
+
+kubectl get ns jenkins-stack &> /dev/null
+
+if [ $? -eq 0 ]; then
+    echo "INFO: jenkins-stack is already deployed."
+    exit 0
+fi
+
+kubectl create ns jenkins-stack
+
+echo "INFO: Creating Kubernetes services..."
+
+kubectl apply -f registry/svc.yaml
+kubectl apply -f docker/svc.yaml
+kubectl apply -f gitea/svc.yaml
+kubectl apply -f jenkins/svc.yaml
+
+echo "INFO: Creating Kubernetes PVC objects..."
+
+kubectl apply -f registry/pvc.yaml
+kubectl apply -f docker/pvc.yaml
+kubectl apply -f gitea/pvc.yaml
+kubectl apply -f jenkins/pvc.yaml
+
+echo "INFO: Going to deploy Docker registry..."
+
+sleep 5
+
+JENKINS_DOCKER_REGISTRY_IP=$(kubectl -n jenkins-stack get svc registry -o jsonpath='{ .status.loadBalancer.ingress[0].ip }')
+
+if [ -z $JENKINS_DOCKER_REGISTRY_IP ]; then
+    echo "ERROR: LoadBalancer IP is not available."
+    kubectl delete ns jenkins-stack
+    exit 1
+fi
+
+sed -i "s/subjectAltName=.*/subjectAltName=IP:$JENKINS_DOCKER_REGISTRY_IP/g" registry/openssl.conf
+
+openssl req -newkey rsa:2048 -nodes -keyout registry.key \
+  -x509 -sha256 -days 3650 -subj "/CN=docker-registry" \
+  -out registry.crt -extensions san -config registry/openssl.conf &> /dev/null
+
+if [ ! -f registry.crt ]; then
+    echo "ERROR: OpenSSL cannot creates registry certificate."
+    kubectl delete ns jenkins-stack
+    exit 1
+else
+    echo "INFO: Docker registry certificate created successfully."
+fi
+
+kubectl -n jenkins-stack create secret generic registry-certs --from-file=registry.crt --from-file=registry.key
+
+kubectl apply -f registry/cm.yaml
+
+kubectl apply -f registry/deploy.yaml
+
+echo "INFO: Going to deploy Docker engine..."
+
+cat <<EOL | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: docker-env
+  namespace: jenkins-stack
+  labels:
+    app.kubernetes.io/name: docker
+    app.kubernetes.io/part-of: jenkins
+    app.kubernetes.io/scope: devops-with-saeid
+    app.kubernetes.io/created-by: ssbostan
+data:
+    JENKINS_DOCKER_REGISTRY_IP: $JENKINS_DOCKER_REGISTRY_IP
+EOL
+
+kubectl apply -f docker/deploy.yaml
+
+echo "INFO: Going to deploy Gitea..."
+
+kubectl apply -f gitea/deploy.yaml
+
+echo "INFO: Going to deploy Jenkins..."
+
+kubectl apply -f jenkins/deploy.yaml
+
+JENKINS_GITEA_IP=$(kubectl -n jenkins-stack get svc gitea -o jsonpath='{ .status.loadBalancer.ingress[0].ip }')
+
+JENKINS_JENKINS_IP=$(kubectl -n jenkins-stack get svc jenkins -o jsonpath='{ .status.loadBalancer.ingress[0].ip }')
+
+echo "INFO: jenkins-stack deployed successfully."
+
+echo "INFO: Deployment preparation may take a while."
+
+cat <<EOL
+Jenkins URL: http://$JENKINS_JENKINS_IP
+Gitea URL: http://$JENKINS_GITEA_IP
+Docker registry URL: https://$JENKINS_DOCKER_REGISTRY_IP
+To use the Docker registry add this code to your Docker "daemon.json" file:
+{
+    "insecure-registries": [
+        "$JENKINS_DOCKER_REGISTRY_IP"
+    ]
+}
+EOL
