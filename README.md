@@ -1,5 +1,7 @@
 # jenkins-stack-kubernetes
 
+![Visits Badge](https://badges.pufler.dev/visits/ssbostan/jenkins-stack-kubernetes)
+
 **Attention**: This repository is a part of the "DevOps with Saeid" class.
 
 Scripts and manifests to deploy Jenkins containers CI/CD stack on Kubernetes.
