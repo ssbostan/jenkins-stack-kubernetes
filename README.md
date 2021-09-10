@@ -1,22 +1,27 @@
 # jenkins-stack-kubernetes
 
 ![Visits Badge](https://badges.pufler.dev/visits/ssbostan/jenkins-stack-kubernetes)
+[![GitHub license](https://img.shields.io/github/license/ssbostan/jenkins-stack-kubernetes)](https://github.com/ssbostan/jenkins-stack-kubernetes/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/ssbostan/jenkins-stack-kubernetes)](https://github.com/ssbostan/jenkins-stack-kubernetes/stargazers)
+![Twitter Follow](https://img.shields.io/twitter/follow/b9t_ir?style=social)
+![LinkedIn Follow](https://shields.io/badge/style-ssbostan-black?logo=linkedin&label=LinkedIn&link=https://www.linkedin.com/in/ssbostan)
+
+Stargaze ![GitHub Repo stars](https://img.shields.io/github/stars/ssbostan/jenkins-stack-kubernetes?style=social) if you find it useful.
 
 **Attention**: This repository is a part of the "DevOps with Saeid" class.
 
 Scripts and manifests to deploy Jenkins containers CI/CD stack on Kubernetes.
 
-All rights reserved, Saeid Bostandoust <ssbostan@linuxmail.org>.
+The [Docker-compose](https://github.com/ssbostan/jenkins-stack-docker) version is also available.
+
+Copyright 2021 Saeid Bostandoust <ssbostan@linuxmail.org>
 
 ### This stack contains:
 
-##### Jenkins (with a complete set of tools and plugins).
-
-##### Docker (on Kubernetes for building images and running Jenkins jobs).
-
-##### Docker registry (as a image repository).
-
-##### Gitea (as a version control system).
+ - **Jenkins (with a complete set of tools and plugins).**
+ - **Docker (on Kubernetes for building images and running Jenkins jobs).**
+ - **Docker registry (as a image repository).**
+ - **Gitea (as a version control system).**
 
 ### Installed tools and plugins:
 
@@ -50,10 +55,11 @@ The stack is tested on Kubernetes 1.20+, should works on earlier versions.
 
 ## How to contribute:
 
-Don't hesitate! contributions are welcomed.
+Don't hesitate! all contributions are welcomed.
 
 ### TODO:
 
+  - [ ] Update tools to the latest stable version
   - [ ] SSL/TLS for Jenkins
   - [ ] SSL/TLS for Gitea
   - [ ] Expose Jenkins behind Ingress object
