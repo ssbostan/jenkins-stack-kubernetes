@@ -8,8 +8,6 @@
 
 Stargaze ![GitHub Repo stars](https://img.shields.io/github/stars/ssbostan/jenkins-stack-kubernetes?style=social) if you find it useful.
 
-**Attention**: This repository is a part of the "DevOps with Saeid" class.
-
 Scripts and manifests to deploy Jenkins containers CI/CD stack on Kubernetes.
 
 The [Docker-compose](https://github.com/ssbostan/jenkins-stack-docker) version is also available.
@@ -25,15 +23,17 @@ Copyright 2021 Saeid Bostandoust <ssbostan@linuxmail.org>
 
 ### Installed tools and plugins:
 
-  - Tools:
+  - Installed tools in Jenkins:
     1. Git client (latest)
-    2. Docker client (latest)
-    3. Kubernetes client (latest)
-    4. Ansible (latest)
-    5. Helm (3.6.2)
-    6. Terraform (1.0.1)
-  - Plugins:
-    1. [34 most useful plugins](Dockerfile)
+    2. Docker client (20.10.9, latest)
+    3. Kubernetes client (1.22.2, latest)
+    4. Ansible (4.6.0, latest) + A complete set of useful collections
+    5. Helm (3.7.0, latest)
+    6. Terraform (1.0.8, latest)
+  - Jenkins plugins:
+    1. [42 most useful Jenkins plugins](Dockerfile)
+  - Ansible collections:
+    1. [13 most useful Ansible collections](ansible.yaml)
 
 ## How to deploy the stack:
 
@@ -59,9 +59,18 @@ Don't hesitate! all contributions are welcomed.
 
 ### TODO:
 
-  - [ ] Update tools to the latest stable version
+  - [x] Update tools to the latest stable version
   - [ ] SSL/TLS for Jenkins
   - [ ] SSL/TLS for Gitea
   - [ ] Expose Jenkins behind Ingress object
   - [ ] Expose Docker registry behind Ingress object
   - [ ] Expose Gitea behind Ingress object
+
+## Changelog:
+
+##### October 13, 2021:
+
+  1. Jenkins updated to the latest LTS version.
+  2. All tools updated to the latest stable version.
+  3. Some new Jenkins plugins installed, See [Dockerfile](Dockerfile).
+  4. Several new Ansible collections were installed.
