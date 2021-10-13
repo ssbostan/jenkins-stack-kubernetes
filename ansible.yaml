@@ -1,0 +1,15 @@
+---
+collections:
+  - amazon.aws
+  - ansible.posix
+  - ansible.utils
+  - kubernetes.core
+  - google.cloud
+  - community.okd
+  - community.kubernetes
+  - community.hashi_vault
+  - community.google
+  - community.general
+  - community.docker
+  - community.aws
+  - awx.awx
