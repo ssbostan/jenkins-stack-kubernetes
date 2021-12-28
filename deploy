@@ -47,11 +47,7 @@ if [ -z $JENKINS_DOCKER_REGISTRY_IP ]; then
     exit 1
 fi
 
-if [[ $OSTYPE == 'darwin'* ]]; then
-    sed -i "" "s/subjectAltName=.*/subjectAltName=IP:$JENKINS_DOCKER_REGISTRY_IP/g" registry/openssl.conf
-else
-    sed -i "s/subjectAltName=.*/subjectAltName=IP:$JENKINS_DOCKER_REGISTRY_IP/g" registry/openssl.conf
-fi
+sed -i"" "s/subjectAltName=.*/subjectAltName=IP:$JENKINS_DOCKER_REGISTRY_IP/g" registry/openssl.conf
 
 openssl req -newkey rsa:2048 -nodes -keyout registry.key \
   -x509 -sha256 -days 3650 -subj "/CN=docker-registry" \
