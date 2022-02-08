@@ -1,9 +1,6 @@
 ARG JENKINS_VERSION=lts-slim
 FROM jenkins/jenkins:$JENKINS_VERSION
 
-# This code is related to "DevOps with Saeid" class.
-# All rights reserved, Saeid Bostandoust <ssbostan@linuxmail.org>.
-
 LABEL maintainer="Saeid Bostandoust <ssbostan@linuxmail.org>"
 
 ##### Install jenkins plugins
@@ -50,7 +47,9 @@ RUN jenkins-plugin-cli --plugins \
   ws-cleanup \
   ssh-steps \
   ec2 \
-  codedeploy
+  codedeploy \
+  permissive-script-security \
+  influxdb
 
 USER root
 
@@ -93,6 +92,10 @@ RUN curl -LO https://releases.hashicorp.com/terraform/1.0.8/terraform_1.0.8_linu
   unzip terraform_1.0.8_linux_amd64.zip && \
   mv terraform /usr/local/bin/terraform && \
   rm -f terraform_1.0.8_linux_amd64.zip
+
+##### Install maasta
+
+RUN pip install git+https://github.com/ssbostan/maasta.git
 
 USER jenkins
 

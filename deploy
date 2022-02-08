@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# This code is related to "DevOps with Saeid" class.
 # All rights reserved, Saeid Bostandoust <ssbostan@linuxmail.org>.
 
-echo "INFO: Welcome to \"DevOps with Saeid\" class (https://b9t.ir/dwsclass)."
+echo "INFO: Welcome to \"DevOps with Saeid\" class (www.devops-with-saeid.com)."
 
 KUBECTL_BIN_PATH=$(which kubectl &> /dev/null)
 

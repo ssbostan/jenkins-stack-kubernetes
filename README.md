@@ -25,13 +25,14 @@ Copyright 2021 Saeid Bostandoust <ssbostan@linuxmail.org>
 
   - Installed tools in Jenkins:
     1. Git client (latest)
-    2. Docker client (20.10.9, latest)
-    3. Kubernetes client (1.22.2, latest)
-    4. Ansible (4.6.0, latest) + A complete set of useful collections
-    5. Helm (3.7.0, latest)
-    6. Terraform (1.0.8, latest)
+    2. Docker client (latest)
+    3. Kubernetes client (latest)
+    4. Ansible (latest) + A complete set of useful collections
+    5. Helm (latest)
+    6. Terraform (latest)
+    7. MAASTA (latest)
   - Jenkins plugins:
-    1. [42 most useful Jenkins plugins](Dockerfile)
+    1. [44 most useful Jenkins plugins](Dockerfile)
   - Ansible collections:
     1. [13 most useful Ansible collections](ansible.yaml)
 
@@ -67,6 +68,13 @@ Don't hesitate! all contributions are welcomed.
   - [ ] Expose Gitea behind Ingress object
 
 ## Changelog:
+
+##### February 08, 2022:
+
+  1. Jenkins updated to the latest LTS version.
+  2. All tools updated to the latest stable version.
+  3. Some new Jenkins plugins installed, See [Dockerfile](Dockerfile).
+  4. MAASTA to integrates MAAS, Terraform and Ansible.
 
 ##### October 13, 2021:
 
