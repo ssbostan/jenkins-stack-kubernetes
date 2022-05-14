@@ -49,7 +49,13 @@ RUN jenkins-plugin-cli --plugins \
   ec2 \
   codedeploy \
   permissive-script-security \
-  influxdb
+  influxdb \
+  ssh-credentials \
+  matrix-auth \
+  durable-task \
+  script-security \
+  multibranch-scan-webhook-trigger \
+  remote-file
 
 USER root
 
@@ -76,22 +82,31 @@ RUN pip install wheel && pip install ansible
 
 ##### Install kubernetes client
 
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+RUN curl -LO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
   chmod +x kubectl && mv kubectl /usr/local/bin/kubectl
 
 ##### Install helm
 
-RUN curl -LO https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz && \
-  tar -zxf helm-v3.7.0-linux-amd64.tar.gz && \
-  mv linux-amd64/helm /usr/local/bin/helm && \
-  rm -rf helm-v3.7.0-linux-amd64.tar.gz linux-amd64
+RUN curl -fsSL https://baltocdn.com/helm/signing.asc | apt-key add -
+
+RUN apt-add-repository "deb https://baltocdn.com/helm/stable/debian all main"
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y helm
 
 ##### Install terraform
 
-RUN curl -LO https://releases.hashicorp.com/terraform/1.0.8/terraform_1.0.8_linux_amd64.zip && \
-  unzip terraform_1.0.8_linux_amd64.zip && \
-  mv terraform /usr/local/bin/terraform && \
-  rm -f terraform_1.0.8_linux_amd64.zip
+RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+
+RUN apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y terraform
+
+##### Install pulumi
+
+RUN curl -LO "https://get.pulumi.com/releases/sdk/pulumi-v$(curl -sL https://www.pulumi.com/latest-version)-linux-x64.tar.gz" && \
+  tar -zxf pulumi-v*-linux-x64.tar.gz && \
+  mv pulumi/pulumi* /usr/local/bin && \
+  rm -rf pulumi-v*-linux-x64.tar.gz pulumi
 
 ##### Install maasta
 
