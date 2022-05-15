@@ -30,9 +30,10 @@ Copyright 2021 Saeid Bostandoust <ssbostan@linuxmail.org>
     4. Ansible (latest) + A complete set of useful collections
     5. Helm (latest)
     6. Terraform (latest)
-    7. MAASTA (latest)
+    7. Pulumi (latest)
+    8. MAASTA (latest)
   - Jenkins plugins:
-    1. [44 most useful Jenkins plugins](Dockerfile)
+    1. [50 most useful Jenkins plugins](Dockerfile)
   - Ansible collections:
     1. [13 most useful Ansible collections](ansible.yaml)
 
@@ -69,14 +70,22 @@ Don't hesitate! all contributions are welcomed.
 
 ## Changelog:
 
-##### February 08, 2022:
+##### 15 May 2022:
+
+  1. Jenkins updated to the latest LTS version.
+  2. All tools updated to the latest stable version.
+  3. Some new Jenkins plugins installed, See [Dockerfile](Dockerfile).
+  4. Install Helm and Terraform via their package repositories.
+  5. Pulumi was added to the Jenkins environment.
+
+##### 08 Feb 2022:
 
   1. Jenkins updated to the latest LTS version.
   2. All tools updated to the latest stable version.
   3. Some new Jenkins plugins installed, See [Dockerfile](Dockerfile).
   4. MAASTA to integrates MAAS, Terraform and Ansible.
 
-##### October 13, 2021:
+##### 13 Oct 2021:
 
   1. Jenkins updated to the latest LTS version.
   2. All tools updated to the latest stable version.
