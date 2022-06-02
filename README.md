@@ -6,7 +6,7 @@
 ![Twitter Follow](https://img.shields.io/twitter/follow/b9t_ir?style=social)
 ![LinkedIn Follow](https://shields.io/badge/style-ssbostan-black?logo=linkedin&label=LinkedIn&link=https://www.linkedin.com/in/ssbostan)
 
-Stargaze ![GitHub Repo stars](https://img.shields.io/github/stars/ssbostan/jenkins-stack-kubernetes?style=social) if you find it useful.
+Stargaze![GitHub Repo stars](https://img.shields.io/github/stars/ssbostan/jenkins-stack-kubernetes?style=social) if you find it useful.
 
 Scripts and manifests to deploy Jenkins containers CI/CD stack on Kubernetes.
 
@@ -39,13 +39,13 @@ Copyright 2021 Saeid Bostandoust <ssbostan@linuxmail.org>
 
 ## How to deploy the stack:
 
-The stack is tested on Kubernetes 1.20+, should works on earlier versions.
+The stack is tested on Kubernetes 1.20+ and should work on earlier versions.
 
 ### Prerequisites:
 
-  1. Kubernetes should supports LoadBalancer service type.
-  2. Kubernetes should be configured to creating PVC dynamically.
-  3. OpenSSL to creating self-signed certificates.
+  1. Kubernetes should support LoadBalancer service type.
+  2. Kubernetes should be configured to create PVC dynamically.
+  3. OpenSSL to create self-signed certificates.
 
 ### Get started:
 
@@ -73,7 +73,7 @@ Don't hesitate! all contributions are welcomed.
 ##### 15 May 2022:
 
   1. Jenkins updated to the latest LTS version.
-  2. All tools updated to the latest stable version.
+  2. All tools are updated to the latest stable version.
   3. Some new Jenkins plugins installed, See [Dockerfile](Dockerfile).
   4. Install Helm and Terraform via their package repositories.
   5. Pulumi was added to the Jenkins environment.
@@ -81,13 +81,13 @@ Don't hesitate! all contributions are welcomed.
 ##### 08 Feb 2022:
 
   1. Jenkins updated to the latest LTS version.
-  2. All tools updated to the latest stable version.
+  2. All tools are updated to the latest stable version.
   3. Some new Jenkins plugins installed, See [Dockerfile](Dockerfile).
   4. MAASTA to integrates MAAS, Terraform and Ansible.
 
 ##### 13 Oct 2021:
 
   1. Jenkins updated to the latest LTS version.
-  2. All tools updated to the latest stable version.
+  2. All tools are updated to the latest stable version.
   3. Some new Jenkins plugins installed, See [Dockerfile](Dockerfile).
   4. Several new Ansible collections were installed.
