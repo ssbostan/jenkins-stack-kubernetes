@@ -26,7 +26,7 @@ Copyright 2021-2022 Saeid Bostandoust <ssbostan@linuxmail.org>
     1. Git client (latest)
     2. Docker client (latest)
     3. Kubernetes client (latest)
-    4. Ansible (latest) + A complete set of useful collections
+    4. Ansible (latest) + set of useful collections
     5. Helm (latest)
     6. Terraform (latest)
     7. Pulumi (latest)
