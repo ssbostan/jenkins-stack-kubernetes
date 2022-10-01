@@ -109,7 +109,7 @@ RUN curl -LO "https://get.pulumi.com/releases/sdk/pulumi-v$(curl -sL https://www
 
 ##### Install maasta
 
-RUN pip install git+https://github.com/ssbostan/maasta.git
+RUN pip install maasta
 
 ##### Install tf2
 
