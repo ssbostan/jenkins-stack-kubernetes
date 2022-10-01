@@ -14,7 +14,6 @@ RUN jenkins-plugin-cli --plugins \
   terraform \
   kubernetes \
   kubernetes-cli \
-  kubernetes-cd \
   openshift-client \
   docker-plugin \
   docker-commons \
@@ -111,6 +110,10 @@ RUN curl -LO "https://get.pulumi.com/releases/sdk/pulumi-v$(curl -sL https://www
 ##### Install maasta
 
 RUN pip install git+https://github.com/ssbostan/maasta.git
+
+##### Install tf2
+
+RUN pip install tf2project
 
 USER jenkins
 

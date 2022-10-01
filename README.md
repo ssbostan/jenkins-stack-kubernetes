@@ -1,6 +1,5 @@
 # jenkins-stack-kubernetes
 
-![Visits Badge](https://badges.pufler.dev/visits/ssbostan/jenkins-stack-kubernetes)
 [![GitHub license](https://img.shields.io/github/license/ssbostan/jenkins-stack-kubernetes)](https://github.com/ssbostan/jenkins-stack-kubernetes/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/ssbostan/jenkins-stack-kubernetes)](https://github.com/ssbostan/jenkins-stack-kubernetes/stargazers)
 ![Twitter Follow](https://img.shields.io/twitter/follow/b9t_ir?style=social)
@@ -12,7 +11,7 @@ Scripts and manifests to deploy Jenkins containers CI/CD stack on Kubernetes.
 
 The [Docker-compose](https://github.com/ssbostan/jenkins-stack-docker) version is also available.
 
-Copyright 2021 Saeid Bostandoust <ssbostan@linuxmail.org>
+Copyright 2021-2022 Saeid Bostandoust <ssbostan@linuxmail.org>
 
 ### This stack contains:
 
@@ -32,6 +31,7 @@ Copyright 2021 Saeid Bostandoust <ssbostan@linuxmail.org>
     6. Terraform (latest)
     7. Pulumi (latest)
     8. MAASTA (latest)
+    9. Tf2 (latest)
   - Jenkins plugins:
     1. [50 most useful Jenkins plugins](Dockerfile)
   - Ansible collections:
@@ -69,6 +69,12 @@ Don't hesitate! all contributions are welcomed.
   - [ ] Expose Gitea behind Ingress object
 
 ## Changelog:
+
+##### 01 Oct 2022:
+
+  1. Jenkins updated to the latest LTS version.
+  2. All tools updated to the latest stable version.
+  3. Tf2 `tf2project.io` was integrated.
 
 ##### 15 May 2022:
 
