@@ -1,8 +1,6 @@
 # jenkins-stack-kubernetes
 
-[![GitHub license](https://img.shields.io/github/license/ssbostan/jenkins-stack-kubernetes)](https://github.com/ssbostan/jenkins-stack-kubernetes/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/ssbostan/jenkins-stack-kubernetes)](https://github.com/ssbostan/jenkins-stack-kubernetes/stargazers)
-![Twitter Follow](https://img.shields.io/twitter/follow/b9t_ir?style=social)
 ![LinkedIn Follow](https://shields.io/badge/style-ssbostan-black?logo=linkedin&label=LinkedIn&link=https://www.linkedin.com/in/ssbostan)
 
 Stargaze ![GitHub Repo stars](https://img.shields.io/github/stars/ssbostan/jenkins-stack-kubernetes?style=social) if you find it useful.
