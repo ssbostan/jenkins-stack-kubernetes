@@ -12,6 +12,8 @@ RUN jenkins-plugin-cli --plugins \
   pipeline-model-definition \
   antisamy-markup-formatter \
   terraform \
+  kubernetes-credentials \
+  kubernetes-client-api \
   kubernetes \
   kubernetes-cli \
   openshift-client \
@@ -73,12 +75,6 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y docker-ce-cli
 
-##### Install ansible
-
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip
-
-RUN pip install wheel && pip install ansible
-
 ##### Install kubernetes client
 
 RUN curl -LO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
@@ -107,6 +103,22 @@ RUN curl -LO "https://get.pulumi.com/releases/sdk/pulumi-v$(curl -sL https://www
   mv pulumi/pulumi* /usr/local/bin && \
   rm -rf pulumi-v*-linux-x64.tar.gz pulumi
 
+##### Install python
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python3-pip python3-venv
+
+RUN python3 -m venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH"
+
+##### Install ansible
+
+RUN pip install ansible
+
+COPY ansible.yaml /tmp/ansible.yaml
+
+RUN ansible-galaxy collection install -r /tmp/ansible.yaml
+
 ##### Install maasta
 
 RUN pip install maasta
@@ -115,8 +127,6 @@ RUN pip install maasta
 
 RUN pip install tf2project
 
+##### Run with jenkins user
+
 USER jenkins
-
-COPY ansible.yaml /tmp/ansible.yaml
-
-RUN ansible-galaxy collection install -r /tmp/ansible.yaml
